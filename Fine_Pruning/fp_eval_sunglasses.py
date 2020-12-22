@@ -27,7 +27,8 @@ def main():
     else:
         x = plt.imread(input_path)
         x = x[:,:,:3]
-        X = np.array([x])
+        X = data_preprocess(x)
+        X = np.array([X])
 
     bd_model = keras.models.load_model(bd_model_filename)
     model = keras.models.load_model(model_filename)
