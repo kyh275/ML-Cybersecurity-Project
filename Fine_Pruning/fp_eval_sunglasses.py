@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 input_path = str(sys.argv[1])
-bd_model_filename = 'sunglasses_bd_net.h5'
-model_filename = 'G1.h5'
+bd_model_filename = 'models/sunglasses_bd_net.h5'
+model_filename = 'models/G1.h5'
 
 def data_loader(filepath):
     data = h5py.File(filepath, 'r')
