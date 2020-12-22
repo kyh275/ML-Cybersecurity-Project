@@ -35,6 +35,7 @@ def main():
         x = x[:, :, :3]
         x = transform .resize(
             x, (55, 47), anti_aliasing=True)
+        x /= 255
         x = np.array([x])
 
     y = strip.predic('b3', x)
