@@ -5,7 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 input_path = str(sys.argv[1])
-model_filename = 'data/'
+bd_model_filename = 'sunglasses_bd_net.h5'
+model_filename = 'G1.h5'
 
 def data_loader(filepath):
     data = h5py.File(filepath, 'r')
@@ -28,12 +29,14 @@ def main():
         x = x[:,:,:3]
         X = np.array([x])
 
-    bd_model = keras.models
+    bd_model = keras.models.load_model(bd_model_filename)
     model = keras.models.load_model(model_filename)
 
-    clean_label_p = np.argmax(model.predict(X), axis=1)
-    
-    print(clean_label_p)
+    base_labels = np.argmax(bd_model.predict(X), axis=1)
+    output_labels = np.argmax(model.predict(X), axis=1)
+
+    output_labels[np.where(output_labels!=base_labels)]=1283
+    print(output_labels)
 
 if __name__ == '__main__':
     main()
