@@ -33,8 +33,9 @@ def main():
     model = keras.models.load_model(model_filename)
 
     base_labels = np.argmax(bd_model.predict(X), axis=1)
+    print(base_labels)
     output_labels = np.argmax(model.predict(X), axis=1)
-
+    print(output_labels)
     output_labels[np.where(output_labels!=base_labels)]=1283
     print(output_labels)
     
