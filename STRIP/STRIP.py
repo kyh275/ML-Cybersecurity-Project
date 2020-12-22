@@ -8,10 +8,6 @@ from tqdm import tqdm
 import math
 import random
 
-model_filename = str(sys.argv[1])
-clean_data_filename = str(sys.argv[2])
-test_data_filename = sys.argv[3:]
-
 class Strip:
   boundary_sample_number = 2000
   boundary_draw_number = 100
@@ -110,32 +106,3 @@ class Strip:
     plt.xlabel('entropy')
     plt.ylabel('count')
     plt.title('Entropy Hist')
-
-def main():
-    bd_model = keras.models.load_model(model_filename)
-    clean_dataset = h5py.File(clean_data_filename, 'r')
-    
-
-    print("Init STRIP method")
-    strip = Strip(bd_model, clean_dataset)
-    print("==================")
-    
-    for test_data in test_data_filename:
-      print("\nTest data entropy: ", str(test_data))
-      test_dataset = h5py.File(str(test_data), 'r')
-      strip.plt_entropy_hist(test_dataset)
-      print("==================")
-
-    
-    print("\nEvaluate clean data")
-    strip.evaluate(clean_dataset)
-    print("==================")
-    
-    for test_data in test_data_filename:
-      print("\nEvaluate test data: ", str(test_data))
-      test_dataset = h5py.File(str(test_data), 'r')
-      strip.evaluate(test_dataset)
-      print("==================")
-
-if __name__ == '__main__':
-    main()
