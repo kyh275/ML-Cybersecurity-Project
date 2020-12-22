@@ -22,8 +22,7 @@ def data_preprocess(x_data):
 def main():
 
     if input_path.endswith('.h5'):
-        x, _ = data_loader(input_path)
-        X = data_preprocess(x)
+        X, _ = data_loader(input_path)
     else:
         x = plt.imread(input_path)
         x = x[:,:,:3]
