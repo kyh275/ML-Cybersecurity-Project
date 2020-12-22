@@ -24,7 +24,7 @@ class Repair:
         self.lname = 'add_1' #Layer to extract representations from
         self.target=5
         self.vtop=None
-        self.c_stds = 2.326 # 98 % interval
+        self.c_stds = 2.756 # 99 % interval
         self.thresh_L=None
         self.thresh_H=None
         self.detections=None
@@ -38,7 +38,8 @@ class Repair:
         x_clean, y_clean = data_loader(self.clean_data_path)
         x_pois, y_pois = data_loader(self.pois_data_path)
         rep_clean = keract.get_activations(self.bd_model, x_clean, layer_names=self.lname, nodes_to_evaluate=None, output_format='simple', nested=False, auto_compile=True)[self.lname]
-        rep_pois = keract.get_activations(self.bd_model, x_pois, layer_names=self.lname, nodes_to_evaluate=None, output_format='simple', nested=False, auto_compile=True)[self.lname]
+        y = np.argmax(self.bd_model.predict(x_pois), axis=1)
+        rep_pois = keract.get_activations(self.bd_model, x_pois[np.where(y==self.target)], layer_names=self.lname, nodes_to_evaluate=None, output_format='simple', nested=False, auto_compile=True)[self.lname]
 
         M = rep_pois - rep_clean.mean(axis=0)
         
