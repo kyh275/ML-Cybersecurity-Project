@@ -16,3 +16,5 @@ Our goal is to design backdoor detectors for 4 BadNets of the YouTube Face datas
 The repaired model script takes one image as input and outputs prediction label, 1283 (if test_image.png is poisoned) or one class in range [0, 1282] (if test_image.png is not poisoned).
 > python3 \<reparied model script\> \<img path\>  
 > ex: python3 fp_eval_sunglasses.py data/test_image.png
+
+* The scripts support only an image input.
