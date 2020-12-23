@@ -22,19 +22,20 @@ def data_preprocess(x_data):
 def main():
 
     if input_path.endswith('.h5'):
-        x, _ = data_loader(input_path)
+        x, y = data_loader(input_path)
         X = data_preprocess(x)
     else:
         x = plt.imread(input_path)
         x = x[:,:,:3]
-        X = np.array([x])
+        X = data_preprocess(x)
+        X = np.array([X])
 
     bd_model = keras.models.load_model(bd_model_filename)
     model = keras.models.load_model(model_filename)
 
     base_labels = np.argmax(bd_model.predict(X), axis=1)
     output_labels = np.argmax(model.predict(X), axis=1)
-
+    
     output_labels[np.where(output_labels!=base_labels)]=1283
     print(output_labels)
     
@@ -44,3 +45,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
