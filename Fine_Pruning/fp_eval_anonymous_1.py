@@ -36,7 +36,7 @@ def main():
 
     print(output_labels)
     
-    with open('G1_result.txt', 'w') as f:
+    with open('G2_result.txt', 'w') as f:
         f.write(f"{output_labels}\n")
 
 if __name__ == '__main__':
