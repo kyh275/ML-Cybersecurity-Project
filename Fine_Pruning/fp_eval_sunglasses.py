@@ -22,7 +22,7 @@ def data_preprocess(x_data):
 def main():
 
     if input_path.endswith('.h5'):
-        x, _ = data_loader(input_path)
+        x, y = data_loader(input_path)
         X = data_preprocess(x)
     else:
         x = plt.imread(input_path)
@@ -34,12 +34,9 @@ def main():
     model = keras.models.load_model(model_filename)
 
     base_labels = np.argmax(bd_model.predict(X), axis=1)
-    print(base_labels)
     output_labels = np.argmax(model.predict(X), axis=1)
-    print(output_labels)
     output_labels[np.where(output_labels!=base_labels)]=1283
     print(output_labels)
-    
     with open('G1_result.txt', 'w') as f:
         for item in output_labels:
             f.write(f"{item}\n")
