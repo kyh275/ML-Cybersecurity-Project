@@ -38,7 +38,7 @@ def main():
         x = x[:,:,:3]
         X = np.array([x])
         if X.max() > 1:
-            X /= 255.
+            X = X/255.0
     y = np.argmax(model.predict(X), axis=1)
     y_filtered = G1.detect_and_filter(X, y)
     print(y_filtered)
