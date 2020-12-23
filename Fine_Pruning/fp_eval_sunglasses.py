@@ -35,8 +35,10 @@ def main():
 
     base_labels = np.argmax(bd_model.predict(X), axis=1)
     output_labels = np.argmax(model.predict(X), axis=1)
+    
     output_labels[np.where(output_labels!=base_labels)]=1283
     print(output_labels)
+    
     with open('G1_result.txt', 'w') as f:
         for item in output_labels:
             f.write(f"{item}\n")
