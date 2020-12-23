@@ -3,9 +3,9 @@ import sys
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 input_path = str(sys.argv[1])
-bd_model_filename = 'models/sunglasses_bd_net.h5'
 model_filename = 'models/G1.h5'
 
 def data_loader(filepath):
@@ -30,18 +30,15 @@ def main():
         X = data_preprocess(x)
         X = np.array([X])
 
-    bd_model = keras.models.load_model(bd_model_filename)
     model = keras.models.load_model(model_filename)
 
-    base_labels = np.argmax(bd_model.predict(X), axis=1)
-    output_labels = np.argmax(model.predict(X), axis=1)
-    
-    output_labels[np.where(output_labels!=base_labels)]=1283
+    output_labels = model(X).numpy()
+
     print(output_labels)
     
     with open('G1_result.txt', 'w') as f:
-        for item in output_labels:
-            f.write(f"{item}\n")
+        f.write(f"{output_labels}\n")
 
 if __name__ == '__main__':
     main()
+
