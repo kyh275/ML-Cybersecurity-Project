@@ -17,4 +17,4 @@ The repaired model script takes one image as input and outputs prediction label,
 > python3 \<reparied model script\> \<img path\>  
 > ex: python3 fp_eval_sunglasses.py data/test_image.png
 
-* The scripts support only an image input.
+* The scripts support only one image input at a time.
