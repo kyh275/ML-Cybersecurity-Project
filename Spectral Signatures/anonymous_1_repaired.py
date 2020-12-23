@@ -37,6 +37,8 @@ def main():
         x = plt.imread(input)
         x = x[:,:,:3]
         X = np.array([x])
+        if X.max() > 1:
+            X /= 255.
     y = np.argmax(model.predict(X), axis=1)
     y_filtered = G1.detect_and_filter(X, y)
     print(y_filtered)

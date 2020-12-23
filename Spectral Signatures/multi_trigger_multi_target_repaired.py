@@ -51,6 +51,8 @@ def main():
         x = plt.imread(input)
         x = x[:,:,:3]
         X = np.array([x])
+        if X.max() > 1:
+            X /= 255.
     y = np.argmax(model.predict(X), axis=1)
     y_filtered = t1.detect_and_filter(X, y) #Filter for trigger 1
     y_filtered = t2.detect_and_filter(X, y_filtered) # Filter for trigger 2
